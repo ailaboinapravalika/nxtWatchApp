@@ -26,7 +26,7 @@ const PageNotFound = () => (
           : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-not-found-dark-theme-img.png'
 
       return (
-        <HomeBg lightMode={lightMode} data-testid="home">
+        <HomeBg lightMode={lightMode}>
           <NavBar />
           <HomeMainContainer>
             <LeftContainer lightMode={lightMode}>

@@ -58,7 +58,6 @@ class Trending extends Component {
   })
 
   getVideoDetails = async () => {
-    console.log('trending vdos get requsst')
     const jwtToken = Cookies.get('jwt_token')
     const trendingVideosApiUrl = `https://apis.ccbp.in/videos/trending`
     const options = {
@@ -88,11 +87,8 @@ class Trending extends Component {
   }
 
   onClickRetryVideoDetails = () => {
-    console.log('trending vdos retryy')
     this.getVideoDetails()
   }
-
-  renderLoadingView = () => <LoadingView />
 
   renderVideoDetailsSuccessView = () => {
     const {trendingVideosList} = this.state
@@ -113,7 +109,7 @@ class Trending extends Component {
               </VideosMainHeadingDiv>
               <TrendingVideosList lightMode={lightMode}>
                 {trendingVideosList.map(video => (
-                  <TrendingVideoCard videoDetails={video} id={video.id} />
+                  <TrendingVideoCard videoDetails={video} key={video.id} />
                 ))}
               </TrendingVideosList>
             </TrendingBg>
@@ -123,23 +119,21 @@ class Trending extends Component {
     )
   }
 
-  renderVideoDetailsFailureView = () => (
-    <FailureView
-      failureType="urlFailure"
-      onClickRetryVideoDetails={this.onClickRetryVideoDetails}
-    />
-  )
-
   renderTrendingVideosView = () => {
     const {videoApiStatus} = this.state
 
     switch (videoApiStatus) {
       case videoApiStatusOb.loading:
-        return this.renderLoadingView()
+        return <LoadingView />
       case videoApiStatusOb.success:
         return this.renderVideoDetailsSuccessView()
       case videoApiStatusOb.failure:
-        return this.renderVideoDetailsFailureView()
+        return (
+          <FailureView
+            failureType="urlFailure"
+            onClickRetry={this.onClickRetryVideoDetails}
+          />
+        )
 
       default:
         return null

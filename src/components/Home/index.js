@@ -47,8 +47,9 @@ class Home extends Component {
   }
 
   getVideos = async () => {
-    const {searchParam} = this.state
     this.setState({apiStatus: homeApiStatus.loading})
+    const {searchParam} = this.state
+
     const homeVideosApiUrl = `https://apis.ccbp.in/videos/all?search=${searchParam}`
     const jwtToken = Cookies.get('jwt_token')
     const options = {
@@ -58,8 +59,9 @@ class Home extends Component {
       method: 'GET',
     }
     const response = await fetch(homeVideosApiUrl, options)
-    const responseData = await response.json()
+
     if (response.ok) {
+      const responseData = await response.json()
       const newVideosList = responseData.videos
 
       const formattedVideosList = newVideosList.map(video => ({
@@ -87,22 +89,6 @@ class Home extends Component {
     this.getVideos()
   }
 
-  renderFailureView = () => (
-    <FailureView
-      failureType="urlFailure"
-      onClickRetryVideoDetails={this.onClickRetryVideoDetails}
-    />
-  )
-
-  renderSearchNotFoundView = () => (
-    <FailureView
-      failureType="searchFailure"
-      onClickRetryVideoDetails={this.onClickRetryVideoDetails}
-    />
-  )
-
-  renderLoadingView = () => <LoadingView />
-
   onSearchTyping = e => {
     const searchKey = e.key
 
@@ -112,7 +98,7 @@ class Home extends Component {
   }
 
   onSearchWord = e => {
-    this.setState({searchParam: e.target.value}, this.getVideos)
+    this.setState({searchParam: e.target.value})
   }
 
   onClickSearchBtn = () => {
@@ -129,7 +115,7 @@ class Home extends Component {
     return (
       <VideosListContainer>
         {videosList.map(video => (
-          <VideoCard videoDetails={video} id={video.id} />
+          <VideoCard videoDetails={video} key={video.id} />
         ))}
       </VideosListContainer>
     )
@@ -138,13 +124,16 @@ class Home extends Component {
   renderSuccessView = () => {
     const {videosList} = this.state
 
-    const videosListLength = videosList.length
+    const noVideos = videosList.length === 0
 
-    if (videosListLength > 0) {
-      return this.totalVideosList()
-    }
-
-    return this.renderSearchNotFoundView()
+    return noVideos ? (
+      <FailureView
+        failureType="searchFailure"
+        onClickRetry={this.onClickRetryVideoDetails}
+      />
+    ) : (
+      this.totalVideosList()
+    )
   }
 
   onRenderVideosContainer = () => {
@@ -152,11 +141,16 @@ class Home extends Component {
 
     switch (apiStatus) {
       case homeApiStatus.loading:
-        return this.renderLoadingView()
+        return <LoadingView />
       case homeApiStatus.success:
         return this.renderSuccessView()
       case homeApiStatus.failure:
-        return this.renderFailureView()
+        return (
+          <FailureView
+            failureType="urlFailure"
+            onClickRetry={this.onClickRetryVideoDetails}
+          />
+        )
 
       default:
         return null

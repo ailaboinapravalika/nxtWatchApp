@@ -54,7 +54,6 @@ class GamingVideos extends Component {
 
   getVideoDetails = async () => {
     const jwtToken = Cookies.get('jwt_token')
-    console.log('gaming vdos called')
     const gamingVideosApiUrl = `https://apis.ccbp.in/videos/gaming`
     const options = {
       headers: {
@@ -80,11 +79,8 @@ class GamingVideos extends Component {
   }
 
   onClickRetryVideoDetails = () => {
-    console.log('gaming vdos retry')
     this.getVideoDetails()
   }
-
-  renderLoadingView = () => <LoadingView />
 
   renderVideoDetailsSuccessView = () => {
     const {GamingVideosList} = this.state
@@ -104,7 +100,7 @@ class GamingVideos extends Component {
               </VideosMainHeadingDiv>
               <TrendingVideosList lightMode={lightMode}>
                 {GamingVideosList.map(video => (
-                  <GamingCard gameData={video} id={video.id} />
+                  <GamingCard gameData={video} key={video.id} />
                 ))}
               </TrendingVideosList>
             </TrendingBg>
@@ -114,24 +110,21 @@ class GamingVideos extends Component {
     )
   }
 
-  renderVideoDetailsFailureView = () => (
-    <FailureView
-      failureType="urlFailure"
-      onClickRetryVideoDetails={this.onClickRetryVideoDetails}
-    />
-  )
-
   renderTrendingVideosView = () => {
     const {videoApiStatus} = this.state
 
     switch (videoApiStatus) {
       case videoApiStatusOb.loading:
-        return this.renderLoadingView()
+        return <LoadingView />
       case videoApiStatusOb.success:
         return this.renderVideoDetailsSuccessView()
       case videoApiStatusOb.failure:
-        return this.renderVideoDetailsFailureView()
-
+        return (
+          <FailureView
+            failureType="urlFailure"
+            onClickRetry={this.onClickRetryVideoDetails}
+          />
+        )
       default:
         return null
     }

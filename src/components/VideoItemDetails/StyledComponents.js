@@ -32,7 +32,7 @@ export const LeftContainer = styled.div`
 export const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
+  min-height: 66vh;
   flex-grow: 1;
   width: 75%;
   background: ${props => (props.lightMode === 'light' ? '#f1f1f1' : '#0f0f0f')};

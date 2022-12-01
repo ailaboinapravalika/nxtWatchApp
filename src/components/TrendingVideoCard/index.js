@@ -29,8 +29,6 @@ const TrendingVideoCard = props => {
   } = videoDetails
   const {name} = channel
 
-  console.log('saved video channel name', name)
-
   const publishTime = formatDistanceToNow(new Date(publishedAt))
 
   return (
@@ -39,8 +37,8 @@ const TrendingVideoCard = props => {
         const {lightMode} = value
 
         return (
-          <Link style={{textDecoration: 'none'}} to={`/videos/${id}`}>
-            <VideoCardBg key={id}>
+          <Link style={{textDecoration: 'none'}} to={`/videos/${id}`} key={id}>
+            <VideoCardBg>
               <VideoThumbNail src={thumbnailUrl} alt="video thumbnail" />
 
               <VideoDataBg>

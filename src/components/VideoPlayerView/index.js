@@ -140,7 +140,7 @@ class VideoPlayerView extends Component {
                     onClick={onClickSaveBtn}
                   >
                     <CgPlayListAdd />
-                    {saveBtnText}
+                    {`${saveBtnText}`}
                   </SaveBtn>
                 </UserResponseDivLg>
               </VideoRatingsDiv>

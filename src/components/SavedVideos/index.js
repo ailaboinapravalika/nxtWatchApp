@@ -58,7 +58,7 @@ const SavedVideos = () => (
                   </VideosMainHeadingDiv>
                   <TrendingVideosList lightMode={lightMode}>
                     {savedVideosList.map(video => (
-                      <TrendingVideoCard videoDetails={video} id={video.id} />
+                      <TrendingVideoCard videoDetails={video} key={video.id} />
                     ))}
                   </TrendingVideosList>
                 </TrendingBg>

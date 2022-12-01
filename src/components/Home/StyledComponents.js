@@ -15,9 +15,12 @@ export const BottomBg = styled.div`
 
   min-height: 400px;
   width: 100%;
-  padding: 30px;
+
   background-color: ${props =>
     props.lightMode === 'light' ? '#f8fafc' : '#0f0f0f'};
+  @media screen and (min-width: 576px) {
+    padding: 30px;
+  }
 `
 
 export const SearchBox = styled.div`
@@ -25,6 +28,7 @@ export const SearchBox = styled.div`
   align-items: center;
   width: 88%;
   height: 90px;
+  margin-left: 10px;
   @media screen and (min-width: 768px) {
     width: 58%;
   }
@@ -62,7 +66,7 @@ export const VideosListContainer = styled(HomeBg)`
   min-height: 30vh;
   width: 100%;
   background-color: transparent;
-  padding: 30px;
+
   @media screen and (min-width: 576px) {
     display: flex;
     justify-content: space-between;
@@ -95,7 +99,7 @@ export const LeftContainer = styled.div`
 export const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
+  min-height: 66vh;
   flex-grow: 1;
   width: 75%;
   background-color: transparent;

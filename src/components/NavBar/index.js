@@ -94,23 +94,25 @@ const NavBar = props => (
               </OptionButton>
             </NavOption>
             <NavOption key="menu">
-              <OptionButton lightMode={lightMode}>
-                <Popup
-                  className="popup-content"
-                  trigger={<GiHamburgerMenu />}
-                  modal
-                  closeOnDocumentClick
-                >
-                  {close => (
-                    <MenuPopupBg lightMode={lightMode}>
-                      <MenuCloseBtn onClick={close} lightMode={lightMode}>
-                        <CgClose />
-                      </MenuCloseBtn>
-                      <MenuCard activeRoute={activeRoute} close={close} />
-                    </MenuPopupBg>
-                  )}
-                </Popup>
-              </OptionButton>
+              <Popup
+                className="popup-content"
+                trigger={
+                  <OptionButton lightMode={lightMode}>
+                    <GiHamburgerMenu />
+                  </OptionButton>
+                }
+                modal
+                closeOnDocumentClick
+              >
+                {close => (
+                  <MenuPopupBg lightMode={lightMode}>
+                    <MenuCloseBtn onClick={close} lightMode={lightMode}>
+                      <CgClose />
+                    </MenuCloseBtn>
+                    <MenuCard activeRoute={activeRoute} />
+                  </MenuPopupBg>
+                )}
+              </Popup>
             </NavOption>
             <NavOption key="logout">
               <Popup

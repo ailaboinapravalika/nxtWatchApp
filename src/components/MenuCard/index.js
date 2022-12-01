@@ -49,13 +49,12 @@ const MenuCard = props => (
   <NxtWatchContext.Consumer>
     {value => {
       const {lightMode, onChangeActiveView} = value
-      const {activeRoute, close} = props
+      const {activeRoute} = props
 
       return (
         <MenuCardBg lightMode={lightMode}>
           {menuOptionsList.map(option => {
             const onClickMenuBtn = () => {
-              close()
               onChangeActiveView(option.id)
             }
 
@@ -68,9 +67,12 @@ const MenuCard = props => (
             }
 
             return (
-              <Link style={{textDecoration: 'none'}} to={option.linkTo}>
+              <Link
+                style={{textDecoration: 'none'}}
+                to={option.linkTo}
+                key={option.id}
+              >
                 <MenuListItem
-                  key={option.id}
                   onClick={onClickMenuBtn}
                   displayTheme={displayTheme}
                 >

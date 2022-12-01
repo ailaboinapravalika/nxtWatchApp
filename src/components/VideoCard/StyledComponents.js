@@ -13,7 +13,7 @@ export const StyledLink = styled(Link)`
   margin-bottom: 50px;
   width: 100%;
   @media screen and (min-width: 576px) and (max-width: 768px) {
-    width: 40%;
+    width: 46%;
     height: 320px;
   }
   @media screen and (min-width: 768px) {
@@ -29,6 +29,7 @@ export const VideoThumbNail = styled.img`
 export const ChannelImgBg = styled.div`
   display: flex;
   width: 100%;
+  padding: 10px;
 `
 
 export const ChannelImg = styled.img`
@@ -77,7 +78,8 @@ export const ChannelName = styled.p`
 export const CountPara = styled.p`
   font-size: 14px;
   font-weight: 400;
-  margin-right: 26px;
+  margin-right: 10px;
+  margin-top: 0px
   color: #64748b;
 `
 
@@ -95,7 +97,7 @@ export const ViewCount = styled.li`
   margin-right: 26px;
   list-style-type: none;
   color: #64748b;
-  margin-top: 16px;
+  margin-top: 0px;
   @media screen and (max-width: 576px) {
     list-style-type: disc;
     font-size: 10px;

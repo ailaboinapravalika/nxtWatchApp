@@ -41,7 +41,6 @@ class App extends Component {
 
   render() {
     const {lightMode, savedVideosList, activeView} = this.state
-    console.log(savedVideosList)
 
     return (
       <NxtWatchContext.Provider
@@ -66,10 +65,9 @@ class App extends Component {
             path="/videos/:id"
             component={VideoItemDetails}
           />
-          <Route path="/not-found" component={PageNotFound} />
+          <Route exact path="/not-found" component={PageNotFound} />
           <Redirect to="/not-found" />
         </Switch>
-        )
       </NxtWatchContext.Provider>
     )
   }

@@ -34,12 +34,11 @@ class VideoItemDetails extends Component {
   state = {videoStatus: videoApiStatusOb.initial, videoDetails: {}}
 
   componentDidMount() {
-    this.setState({videoStatus: videoApiStatusOb.loading})
     this.getVideoDetails()
   }
 
   getVideoDetails = async () => {
-    console.log('vdoItem get requsst')
+    this.setState({videoStatus: videoApiStatusOb.loading})
     const jwtToken = Cookies.get('jwt_token')
     const {match} = this.props
     const {params} = match
@@ -74,40 +73,37 @@ class VideoItemDetails extends Component {
         videoDetails: formattedVideoDetails,
       })
     } else {
+      console.log('url failed')
       this.setState({videoStatus: videoApiStatusOb.failure})
     }
   }
 
   onClickRetryVideoDetails = () => {
-    console.log('vdo item retry')
+    console.log('retry clicked vdo details')
     this.getVideoDetails()
   }
-
-  renderLoadingView = () => <LoadingView />
 
   renderVideoDetailsSuccessView = () => {
     const {videoDetails} = this.state
 
-    return <VideoPlayerView videoData={videoDetails} />
+    return <VideoPlayerView videoData={videoDetails} key={videoDetails.id} />
   }
-
-  renderVideoDetailsFailureView = () => (
-    <FailureView
-      failureType="urlFailure"
-      onClickRetryVideoDetails={this.onClickRetryVideoDetails}
-    />
-  )
 
   renderVideoItemDetailsView = () => {
     const {videoStatus} = this.state
 
     switch (videoStatus) {
       case videoApiStatusOb.loading:
-        return this.renderLoadingView()
+        return <LoadingView />
       case videoApiStatusOb.success:
         return this.renderVideoDetailsSuccessView()
       case videoApiStatusOb.failure:
-        return this.renderVideoDetailsFailureView()
+        return (
+          <FailureView
+            failureType="urlFailure"
+            onClickRetry={this.onClickRetryVideoDetails}
+          />
+        )
 
       default:
         return null
